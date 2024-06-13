@@ -83,6 +83,7 @@ def get_jsons_and_prep():
     ]
 
     df_rel = df[df['haltestellen_name'].isin(relevant_stations)].copy()
+    df_rel.reset_index(drop=True, inplace=True)
     # Spalte 'geopos' in 'lon' und 'lat' aufteilen
     df_rel[['lon', 'lat']] = pd.DataFrame(df_rel['geopos'].tolist())
     df_rel.drop('geopos', axis=1, inplace=True)
@@ -107,6 +108,7 @@ def connect_and_send():
     # Auto commit is very important
     conn.set_session(autocommit=True)
 
+    cur.execute("DROP TABLE IF EXISTS rel_interruptions2;")
     cur.execute("CREATE TABLE IF NOT EXISTS rel_interruptions2 (betriebstag text, fahrt_bezeichner text, betreiber_id text, betreiber_abk text, betreiber_name text, produkt_id text, linien_id text, linien_text text, verkehrsmittel_text text, zusatzfahrt_tf text, faellt_aus_tf text, bpuic text, haltestellen_name text, ankunftszeit text, an_prognose text, an_prognose_status text, abfahrtszeit text, ab_prognose text, ab_prognose_status text, durchfahrt_tf text, ankunftsverspatung text, abfahrtsverspatung text, lon decimal, lat decimal);")
 
     #load csv
@@ -203,5 +205,3 @@ with DAG('interruptions_prep_and_send_to_rds', default_args=default_args, schedu
 
 if __name__ == "__main__":
     dag.cli()
-
-
