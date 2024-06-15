@@ -10,7 +10,6 @@ This repository contains various scripts and SQL files for data processing and a
 - [PostgreSQL Scripts](#postgresql-scripts)
 - [Getting Started](#getting-started)
 - [Requirements](#requirements)
-- [License](#license)
 - [Acknowledgments](#acknowledgments)
 
 ## DAGs
@@ -36,6 +35,7 @@ This repository contains various scripts and SQL files for data processing and a
 - `Joined_data_analysis.sql`: Analyzes joined data from interruptions and Velospot availability.
 - `Load_trainstations_to_RDS.sql`: Loads train station data into PostgreSQL RDS.
 
+## Getting started
 1. **Configure AWS Lambda**:
    - Ensure Lambda functions have necessary permissions for S3 and PostgreSQL RDS.
    - Lambda functions located in `/lambda_functions`:
